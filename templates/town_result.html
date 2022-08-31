@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Petsitters</title>
+</head>
+
+
+{% block content %}
+<body>
+{% if filtered_list %}
+<h1>Petsitters in {{town}}</h1>
+{% else %}
+<h1>All Petsitters</h1>
+{% endif %}
+
+
+<form action = "/petsitters" method="POST">
+   <label for="towns">Filter by town</label>
+   <select name="towns" id="towns">
+   {% for town in town_list %}
+   <option value="{{town}}">{{town}}</option>
+   {% endfor %}
+   </select>
+   <button type="submit" name="submit">Filter</button>
+ </form>
+
+
+
+<div>
+    <div class="card-deck">
+      {% if filtered_list %}
+      {% for dict_items in filtered_list %}
+        <div class="card">
+          <img class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiyWWqqcoBgNdmktd55rGvP863AB2g0lHKkw&usqp=CAU" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">{{dict_items["personName"]}}</h5>
+              <p class="card-text">{{dict_items["personTown"]}}</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        {% for dict_items in all_petsitters %}
+        <div class="card">
+          <img class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiyWWqqcoBgNdmktd55rGvP863AB2g0lHKkw&usqp=CAU" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">{{dict_items["personName"]}}</h5>
+              <p class="card-text">{{dict_items["personTown"]}}</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+
+    </div>
+</div>
+
+</body>
+
+{% endblock %}

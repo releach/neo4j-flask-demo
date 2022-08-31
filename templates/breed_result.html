@@ -1,0 +1,69 @@
+
+{% extends 'base.html' %}
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pets</title>
+</head>
+
+
+{% block content %}
+
+{% if filtered_pets %}
+<h1>{{breed}}s</h1>
+{% else %}
+<h1>All Pets</h1>
+{% endif %}
+
+  <form action = "/pets" method="POST">
+     <label for="cats">Filter by breed</label>
+     <select name="breeds" id="breeds">
+       <optgroup label="Cats">
+     {% for cat in cat_list %}
+     <option value="{{cat}}">{{cat}}</option>
+     {% endfor %}
+      </optgroup>
+      <optgroup label="Dogs">
+     {% for dog in dog_list %}
+       <option value="{{dog}}">{{dog}}</option>
+     {% endfor %}
+     </optgroup>
+     </select>
+     <button type="submit" name="submit">Find pets by breed</button>
+   </form>
+
+
+<div>
+    <div class="card-deck">
+      {% if filtered_pets %}
+      {% for dict_items in filtered_pets %}
+        <div class="card">
+          <img class="card-img-top" src={{dict_items["petImage"]}} alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">{{dict_items["petName"]}}</h5>
+              <p class="card-text">{{dict_items["petBreed"]}}</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        {% for dict_items in all_pets %}
+        <div class="card">
+          <img class="card-img-top" src={{dict_items["petImage"]}} alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">{{dict_items["petName"]}}</h5>
+              <p class="card-text">{{dict_items["petBreed"]}}</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+
+    </div>
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'base.html' %}
+
+
+
+<body>
+  {% block content %}
+  <img src="data:image/png;base64,{{get_path|safe}}" />
+{% endblock %}
+</body>
+</html>

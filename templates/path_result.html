@@ -1,0 +1,38 @@
+
+
+{% extends 'base.html' %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Petsitter network</title>
+</head>
+
+
+<body>
+{% block content %}
+<h1>How do pet owners know pet sitters?</h1>
+<form action = "/networks" method="POST">
+   <label for="owners">Owner Name</label>
+   <select name="pet_owners" id="pet_owner_list">
+   {% for owner in pet_owners %}
+   <option value="{{owner}}">{{owner}}</option>
+   {% endfor %}
+   </select>
+   <select name="pet_sitters" id="pet_sitter_list">
+     <label for="sitters">Sitter Name</label>
+   {% for sitter in pet_sitters %}
+   <option value="{{sitter}}">{{sitter}}</option>
+   {% endfor %}
+   </select>
+   <button type="submit" name="submit">Find a reference</button>
+ </form>
+
+ {% if get_path %}
+ <div>
+     <img src="data:image/png;base64,{{get_path|safe}}" />
+ </div>
+{% endif %}
+{% endblock %}
+</body>
+</html>
